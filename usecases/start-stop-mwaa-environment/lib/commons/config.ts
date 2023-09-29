@@ -102,8 +102,13 @@ function convertToType<T>(field: string, originalValue: string): T {
     return result as T;
   }
 
-  const numValue = toNumber(originalValue);
-  return (isNumber(numValue) ? numValue : originalValue) as T;
+  if (field == 'CDK_DEFAULT_ACCOUNT'){
+    return originalValue as T;
+  }
+  else {
+    const numValue = toNumber(originalValue);
+    return (isNumber(numValue) ? numValue : originalValue) as T;
+  }
 }
 
 function toArray<T>(value: string): T[] {
