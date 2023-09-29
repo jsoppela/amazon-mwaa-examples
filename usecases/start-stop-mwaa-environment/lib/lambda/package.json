@@ -4,12 +4,12 @@
   "description": "Lambdas for MWAA pause resume stack",
   "private": true,
   "devDependencies": {
-    "@types/node": "*",
-    "@types/uuid": "*"
+    "@types/node": "18.11.18",
+    "@types/uuid": "9.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-mwaa": "*",
-    "uuid": "*",
-    "axios": "*"
+    "@aws-sdk/client-mwaa": "3.245.0",
+    "uuid": "9.0.0",
+    "axios": "1.2.1"
   }
 }
