@@ -27,4 +27,18 @@ export function prepareTestEnvironment(updateExecutionRole = 'yes') {
   process.env.MWAA_PAUSE_CRON_SCHEDULE = '0 20 ? * MON-FRI *';
   process.env.MWAA_RESUME_CRON_SCHEDULE = '0 6 ? * MON-FRI *';
   process.env.MWAA_SCHEDULE_TIME_ZONE = 'America/Indiana/Indianapolis';
+  delete process.env.MWAA_VPC_ID;
+  delete process.env.MWAA_VPC_SUBNETS;
+  delete process.env.MWAA_VPC_SECURITY_GROUPS;
+  delete process.env.MWAA_DAGS_S3_PATH;
+  delete process.env.MWAA_NOTIFICATION_EMAILS;
+  delete process.env.MWAA_NOTIFICATION_TYPES;
+  delete process.env.MWAA_RESOURCES_FOLDER;
+  delete process.env.MWAA_METADATA_EXPORT_DAG_NAME;
+  delete process.env.MWAA_METADATA_IMPORT_DAG_NAME;
+  delete process.env.MWAA_DEFAULT_ENV_BACKUP_FILE;
+  delete process.env.SFN_POLL_TIMEOUT_MINS;
+  delete process.env.SFN_PAUSE_TIMEOUT_MINS;
+  delete process.env.SFN_RESUME_TIMEOUT_MINS;
+  delete process.env.SFN_POLL_FREQUENCY_SECS;
 }
