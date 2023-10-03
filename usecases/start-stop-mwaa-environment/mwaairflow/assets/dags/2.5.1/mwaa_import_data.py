@@ -144,7 +144,9 @@ def importVariable(**context):
         reader = csv.reader(csvfile)
         rows = []
         for row in reader:
-            rows.append(Variable(row[0], row[1]))
+            rowexist = session.query(Variable).filter(Variable.key == row[0]).all()
+            if (len(rowexist) == 0):
+              rows.append(Variable(row[0], row[1]))
         if len(rows) > 0:
             session.add_all(rows)
     session.commit()
