@@ -39,10 +39,18 @@ S3_KEY = 'data/'
 
 dag_id = 'mwaa_export_data'
 
+STATE_SUCCESS = 'success'
+STATE_RUNNING = 'running'
+
 DAG_RUN_SELECT = f"select dag_id, execution_date, state, run_id, external_trigger, \
 '\\x' || encode(conf,'hex') as conf, end_date, start_date, run_type, last_scheduling_decision, \
 dag_hash, creating_job_id, queued_at, data_interval_start, data_interval_end, log_template_id, \
-updated_at from dag_run"
+updated_at from dag_run where dag_id <> '{dag_id}' or state <> '{STATE_RUNNING}' \
+UNION \
+select dag_id, execution_date, '{STATE_SUCCESS}' as state, run_id, external_trigger, \
+'\\x' || encode(conf,'hex') as conf, '{days_ago(0)}'::timestamp as end_date, start_date, run_type, last_scheduling_decision, \
+dag_hash, creating_job_id, queued_at, data_interval_start, data_interval_end, log_template_id, \
+updated_at from dag_run where dag_id = '{dag_id}' and state = '{STATE_RUNNING}' "
 
 TASK_INSTANCE_SELECT = "select task_id, dag_id, run_id, start_date, end_date, duration, state, \
 try_number, hostname, unixname, job_id, pool, queue, priority_weight, \
