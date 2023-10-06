@@ -162,13 +162,13 @@ def importConnection(**context):
         reader = csv.reader(csvfile)
         rows = []
         for row in reader:
-            rowexist = session.query(Connection).filter(Connection.conn_id==row[0]).all()
+            rowexist = session.query(Connection).filter(Connection.conn_id == row[0]).all()
             if(len(rowexist) == 0):
                 port = None
-                if(len(row[7]) > 0):
+                if row[7]:
                     port = int(row[7])
-                rows.append(Connection(row[0], row[1],row[2], row[3],row[4],
-                             row[5],row[6], row[7],row[8]))
+                rows.append(Connection(row[0], row[1], row[2], row[3], row[4],
+                                       row[5], row[6], port, row[8]))
 
         if len(rows) > 0:
             session.add_all(rows)
